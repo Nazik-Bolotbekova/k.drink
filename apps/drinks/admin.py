@@ -1,9 +1,9 @@
 from django.contrib import admin
-from apps.drinks.models import DrinkCategory,Drink
+from apps.drinks.models import DrinkCategory, Drink, Review
 
-# admin.site.register(DrinkCategory)
-# admin.site.register(Drink)
 
+
+admin.site.register(Review)
 
 @admin.register(DrinkCategory)
 class DrinkCategoryAdmin(admin.ModelAdmin):
@@ -22,16 +22,10 @@ class DrinkCategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-    # fieldsets = (
-    #     (
-    #         'Основная информация', {
-    #         'fields': ('name',)
-    #     })
-    # )
 
 @admin.register(Drink)
 class DrinkAdmin(admin.ModelAdmin):
-    list_display = ('id','name','price','is_available','category')
+    list_display = ('id','name','price','is_available','category','country','volume','image')
     search_fields = ('name',)
     list_filter = ('id','name')
     list_display_links = ('id', 'name',)
@@ -40,20 +34,13 @@ class DrinkAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Основная информация', {
-            'fields': ('name',)
+            'fields': ('name','price','volume','is_available','image')
+        }),
+        ('Категория', {
+            'fields': ('category','country')
         }),
     )
 
-    # fieldsets = (
-    #     ('Основная информация', {
-    #         'fields': ('name', 'category')
-    #     }),
-    #     ('Описание', {'fields': ('description', 'volume')
-    #                   }),
-    #     ('Цена и наличие', {'fields': ('price', 'is_available')
-    #                         }),
-    #     ()
-    # )
 
 
 

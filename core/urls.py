@@ -11,7 +11,8 @@ def home_view(request):
 urlpatterns = [
     path('',home_view),
     path('admin/', admin.site.urls),
-    path('drinks/',include('apps.drinks.urls'))
+    path('drinks/',include('apps.drinks.urls')),
+    path('users/',include('apps.users.urls'))
 ]
 
 if settings.DEBUG:

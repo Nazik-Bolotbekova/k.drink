@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Погода</title>
+</head>
+<body>
+    <h1>Погода в Бишкеке</h1>
+
+    {% if user.is_authenticated and weather %}
+        <p>Привет, {{ user.username }}!</p>
+        <p>Температура: {{ weather.main.temp }}°C</p>
+        <p>Описание: {{ weather.weather.0.description }}</p>
+    {% else %}
+        <p>Ты не вошёл в аккаунт или данные о погоде недоступны.</p>
+    {% endif %}
+
+    <hr>
+    <pre>{{ weather }}</pre> <!-- DEBUG -->
+</body>
+</html>
+
+</html>

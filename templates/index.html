@@ -3,6 +3,9 @@
 {% block title %}
 Main-k.drinks
 {% endblock %}
+    {% if user.is_authenticated and weather %}
+        <p>Привет user.uername!На улице погода : {{ weather.main.temp }}°C</p>
+    {% endif %}
 
 {% block content %}
     <!-- Carousel Start -->
