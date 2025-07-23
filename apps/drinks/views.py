@@ -1,11 +1,10 @@
 
 from django.shortcuts import render,redirect
-from django.views.generic.base import View
 from .service import get_weather
+from django.views.generic import View, DetailView
 
 from .models import Drink, DrinkCategory
-from .forms import ReviewForm
-
+from .forms import ReviewForm, OrderForm
 
 
 # def index_view(request):
@@ -40,9 +39,32 @@ def create_review(request):
         form = ReviewForm()
         return render(request, 'create_review.html', {'form': form})
 
-def order_view(request,drink_id):
-    drink = Drink.objects.get(id=drink_id)
-    return render(request,'order.html',{'drink':drink})
+# def order_view(request,drink_id):
+#     drink = Drink.objects.get(id=drink_id)
+#     return render(request,'order.html',{'drink':drink})
 
 def order_success_view(request):
     return render(request, 'order_success.html')
+
+def order_view2(request,drink_id):
+    drink = Drink.objects.get(id=drink_id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.total_price = drink.price
+            order.save()
+            return redirect('order_success')
+
+
+        else:
+            return render(request,'order.html',{"form":form,'drink':drink})
+    else:
+        form = OrderForm()
+        return render(request, 'order.html', {'form': form,'drink':drink})
+
+
+class DrinkDetailView(DetailView):
+    model = Drink
+    template_name = 'detail.html'
+    context_object_name = 'drink'

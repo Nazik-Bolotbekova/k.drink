@@ -1,9 +1,10 @@
 from django.contrib import admin
-from apps.drinks.models import DrinkCategory, Drink, Review
+from apps.drinks.models import DrinkCategory, Drink, Review,Order
 
 
 
 admin.site.register(Review)
+admin.site.register(Order)
 
 @admin.register(DrinkCategory)
 class DrinkCategoryAdmin(admin.ModelAdmin):

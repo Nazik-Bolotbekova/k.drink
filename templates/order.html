@@ -4,8 +4,6 @@
     <h2 class="mb-4">Оформление заказа</h2>
 
     <div class="card p-4 shadow-sm">
-        <form action="{% url 'order_success' %}" method="get">
-        <!-- Список товаров -->
         <h5 class="mb-3">Заказ:</h5>
         <ul class="list-group mb-4">
             <li class="list-group-item d-flex justify-content-between">
@@ -18,36 +16,36 @@
             </li>
         </ul>
 
-        <!-- Форма доставки -->
-        <h5 class="mb-3">Адрес доставки</h5>
-        <form>
+        <form method="post" action="{% url 'order' drink.id %}">
+            {% csrf_token %}
+
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Имя и фамилия">
+                <input type="text" name="name" class="form-control" placeholder="Имя и фамилия">
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Адрес (улица, дом, квартира)">
+                <input type="text" name="address" class="form-control" placeholder="Адрес (улица, дом, квартира)">
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Город">
+                <input type="text" name="city" class="form-control" placeholder="Город">
             </div>
             <div class="mb-3">
-                <input type="tel" class="form-control" placeholder="Телефон">
+                <input type="tel" name="phone_number" class="form-control" placeholder="Телефон">
             </div>
 
-            <!-- Оплата -->
+            <input type="hidden" name="total_price" value="{{ drink.price }}">
 
             <h5 class="mb-3">Оплата</h5>
             <div class="mb-3">
-                <select class="form-select">
-                    <option selected>Выберите способ оплаты</option>
-                    <option value="1">💳 Карта</option>
-                    <option value="2">📱 Электронный кошелёк</option>
-                    <option value="3">💵 Наличные при получении</option>
+                <select class="form-select" name="payment">
+                    <option selected disabled>Выберите способ оплаты</option>
+                    <option value="Карта">Карта</option>
+                    <option value="Наличные">Наличные</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">✅ Подтвердить заказ</button>
+            <button type="submit" class="btn btn-primary w-100">Подтвердить заказ</button>
         </form>
     </div>
 </div>
 {% endblock %}
+
